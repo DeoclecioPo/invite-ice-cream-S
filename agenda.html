@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fff7f4">
+    <title>Vamos combinar? | Sophia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body class="schedule-page">
+    <main class="schedule-shell">
+      <a class="back-link" href="index.html">← voltar ao convite</a>
+      <section class="schedule-panel" aria-labelledby="schedule-title">
+        <div class="tiny-bow" aria-hidden="true"><span></span><span></span><i></i></div>
+        <p class="eyebrow">que bom que você topou!</p>
+        <h1 id="schedule-title">Vamos combinar?</h1>
+        <p class="schedule-intro">Escolhe o que funciona melhor pra você. Depois, é só me mandar as respostas ♡</p>
+
+        <form id="date-form">
+          <div class="form-field">
+            <label for="meet-date">Qual dia seria bom?</label>
+            <input id="meet-date" name="meet-date" type="date" required>
+          </div>
+
+          <fieldset class="form-field">
+            <legend>E um horário?</legend>
+            <div class="time-options">
+              <div class="time-option"><input id="time-early" type="radio" name="meet-time" value="À tarde, por volta das 15h" required><label for="time-early">Por volta das 15h</label></div>
+              <div class="time-option"><input id="time-late" type="radio" name="meet-time" value="No fim da tarde, por volta das 17h"><label for="time-late">Por volta das 17h</label></div>
+              <div class="time-option"><input id="time-evening" type="radio" name="meet-time" value="No começo da noite, por volta das 19h"><label for="time-evening">Por volta das 19h</label></div>
+              <div class="time-option"><input id="time-unsure" type="radio" name="meet-time" value="Ainda não tenho certeza"><label for="time-unsure">Não tenho certeza</label></div>
+            </div>
+          </fieldset>
+
+          <button class="button button-primary schedule-submit" type="submit">Compartilhar meu convite <span aria-hidden="true">♡</span></button>
+          <p class="share-status" id="share-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
