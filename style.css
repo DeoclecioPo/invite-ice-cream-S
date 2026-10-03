@@ -94,24 +94,10 @@ h1, h2 { font-family: "Playfair Display", Georgia, serif; }
 .cloud-one { top: 18px; left: -28px; }
 .cloud-two { right: -30px; bottom: 12px; transform: scale(0.78); }
 .art-note { position: absolute; right: -5px; bottom: -7px; color: var(--pink-dark); font-size: 0.85rem; letter-spacing: 0.08em; }
-.mascot { position: absolute; z-index: 3; bottom: 3px; width: 48px; height: 42px; animation: mascot-bob 3.8s ease-in-out infinite; }
-.mascot-kitty { left: 8px; }
-.mascot-puppy { right: 15px; animation-delay: -1.9s; }
-.mascot-face { position: absolute; z-index: 1; left: 5px; bottom: 0; width: 39px; height: 34px; background: #fffdfb; border: 1px solid #edddda; border-radius: 47% 47% 44% 44%; box-shadow: 0 3px 7px #67464b1a; }
-.mascot-ear { position: absolute; top: 1px; width: 15px; height: 20px; background: #fffdfb; border: 1px solid #edddda; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-.mascot-ear-left { left: 4px; transform: rotate(-15deg); }
-.mascot-ear-right { right: 3px; transform: rotate(15deg); }
-.mascot-face i { position: absolute; top: 13px; width: 3px; height: 4px; background: #655c60; border-radius: 50%; }
-.mascot-face i:first-child { left: 10px; }
-.mascot-face i:nth-child(2) { right: 10px; }
-.mascot-face b { position: absolute; top: 19px; left: 17px; width: 5px; height: 3px; background: #e88da0; border-radius: 50%; }
-.mascot-bow { position: absolute; z-index: 2; top: 0; left: 0; width: 16px; height: 9px; background: var(--pink); clip-path: polygon(50% 45%, 0 0, 5% 100%, 50% 60%, 95% 100%, 100% 0); transform: rotate(-15deg); }
-.puppy-ear { position: absolute; top: 6px; width: 17px; height: 34px; background: #c4e6f2; border: 1px solid #a8d4e6; border-radius: 50%; }
-.puppy-ear-left { left: -3px; transform: rotate(30deg); }
-.puppy-ear-right { right: -3px; transform: rotate(-30deg); }
-.mascot-puppy .mascot-face { left: 5px; width: 39px; height: 34px; }
-.mascot-puppy .mascot-face b { background: #8cc9df; }
-@keyframes mascot-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -4px; } }
+.mascot { position: absolute; z-index: 3; display: block; height: auto; transform-origin: 50% 50%; animation: mascot-sway 3.6s ease-in-out infinite; pointer-events: none; }
+.mascot-kitty { top: 18px; right: 22px; width: clamp(72px, 9vw, 104px); }
+.mascot-puppy { bottom: 14px; left: 18px; width: clamp(104px, 13vw, 144px); animation-delay: -1.8s; }
+@keyframes mascot-sway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
 @keyframes photo-arrive { from { opacity: 0.72; } to { opacity: 1; } }
 
 .schedule-page { padding: 28px 18px 48px; }
@@ -145,7 +131,8 @@ fieldset.form-field { padding: 0; border: 0; }
 	.photo-frame img { height: clamp(235px, 70vw, 340px); }
 	.sticker-heart { width: 48px; height: 48px; font-size: 1.7rem; }
 	.sticker-sparkle { width: 40px; height: 40px; }
-	.mascot { bottom: 1px; }
+	.mascot-kitty { top: 12px; right: 12px; width: 68px; }
+	.mascot-puppy { bottom: 10px; left: 10px; width: 98px; }
 }
 
 @media (max-width: 420px) {
