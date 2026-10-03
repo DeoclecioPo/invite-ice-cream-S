@@ -61,40 +61,78 @@ if (dateForm) {
 			const pdf = new window.jspdf.jsPDF();
 			pdf.setFillColor(255, 246, 243);
 			pdf.rect(0, 0, 210, 297, "F");
-			pdf.setTextColor(190, 91, 118);
+			pdf.setFillColor(255, 255, 255);
+			pdf.roundedRect(12, 12, 186, 273, 5, 5, "F");
+
+			pdf.setFillColor(216, 112, 140);
+			pdf.roundedRect(22, 22, 166, 68, 5, 5, "F");
+			pdf.setTextColor(255, 237, 240);
 			pdf.setFont("helvetica", "bold");
-			pdf.setFontSize(24);
-			pdf.text("Nosso sorvetinho", 22, 38);
-			pdf.setDrawColor(240, 190, 198);
-			pdf.setLineWidth(0.6);
-			pdf.line(22, 47, 188, 47);
+			pdf.setFontSize(9);
+			pdf.text("UM CONVITE DOCINHO", 33, 39);
+			pdf.setTextColor(255, 255, 255);
+			pdf.setFont("helvetica", "bold");
+			pdf.setFontSize(21);
+			pdf.text("Um sorvetinho?", 33, 57);
+			pdf.setFont("helvetica", "normal");
+			pdf.setFontSize(10);
+			pdf.text("Uma ideia gostosa pra gente combinar.", 33, 74);
+
+			pdf.setFillColor(242, 198, 145);
+			pdf.setDrawColor(242, 198, 145);
+			pdf.triangle(157, 53, 181, 53, 169, 82, "F");
+			pdf.setFillColor(255, 222, 225);
+			pdf.setDrawColor(255, 222, 225);
+			pdf.circle(164, 51, 10, "F");
+			pdf.setFillColor(190, 225, 239);
+			pdf.setDrawColor(190, 225, 239);
+			pdf.circle(175, 50, 8, "F");
+			pdf.setFillColor(255, 247, 231);
+			pdf.setDrawColor(255, 247, 231);
+			pdf.circle(169, 43, 3, "F");
+
+			pdf.setFillColor(255, 243, 241);
+			pdf.roundedRect(22, 105, 166, 57, 4, 4, "F");
+			pdf.setTextColor(181, 83, 112);
+			pdf.setFont("helvetica", "bold");
+			pdf.setFontSize(9);
+			pdf.text("DIA ESCOLHIDO", 34, 122);
 			pdf.setTextColor(72, 71, 76);
 			pdf.setFont("helvetica", "normal");
 			pdf.setFontSize(14);
-			pdf.text("Oi! Aqui estão minhas ideias para o nosso encontro:", 22, 68);
+			pdf.text(pdf.splitTextToSize(chosenDate, 140), 34, 143);
+
+			pdf.setFillColor(235, 247, 250);
+			pdf.roundedRect(22, 172, 166, 57, 4, 4, "F");
+			pdf.setTextColor(78, 132, 151);
 			pdf.setFont("helvetica", "bold");
-			pdf.text("Data", 22, 96);
+			pdf.setFontSize(9);
+			pdf.text("HORARIO", 34, 189);
+			pdf.setTextColor(72, 71, 76);
 			pdf.setFont("helvetica", "normal");
-			pdf.text(pdf.splitTextToSize(chosenDate, 160), 22, 106);
-			pdf.setFont("helvetica", "bold");
-			pdf.text("Horário", 22, 132);
-			pdf.setFont("helvetica", "normal");
-			pdf.text(chosenTime, 22, 142);
+			pdf.setFontSize(13);
+			pdf.text(pdf.splitTextToSize(chosenTime, 140), 34, 210);
+
+			pdf.setDrawColor(240, 220, 216);
+			pdf.setLineWidth(0.5);
+			pdf.line(54, 248, 156, 248);
 			pdf.setTextColor(190, 91, 118);
+			pdf.setFont("helvetica", "bold");
 			pdf.setFontSize(12);
-			pdf.text("Com carinho, Sophia  ♡", 22, 178);
+			pdf.text("Com carinho, Sophia", 105, 263, { align: "center" });
+			pdf.setTextColor(130, 185, 205);
 			pdf.setFontSize(10);
-			pdf.text("Um convite para adoçar o dia.", 22, 265);
+			pdf.text("Vai ser uma tarde bem docinha.", 105, 272, { align: "center" });
 
 			const pdfBlob = pdf.output("blob");
-			const pdfFile = new File([pdfBlob], "nosso-sorvetinho.pdf", { type: "application/pdf" });
+			const pdfFile = new File([pdfBlob], "sorvete.pdf", { type: "application/pdf" });
 
 			if (navigator.canShare?.({ files: [pdfFile] }) && navigator.share) {
 				await navigator.share({ title: "Nosso sorvetinho", text: message, files: [pdfFile] });
 			} else {
-				pdf.save("nosso-sorvetinho.pdf");
+				pdf.save("sorvete.pdf");
 				window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, "_blank", "noopener");
-				document.querySelector("#share-status").textContent = "O PDF foi baixado. No WhatsApp, escolha a conversa e anexe o arquivo nosso-sorvetinho.pdf.";
+				document.querySelector("#share-status").textContent = "O PDF foi baixado. No WhatsApp, escolha a conversa e anexe o arquivo sorvete.pdf.";
 			}
 		} catch (error) {
 			if (error.name === "AbortError") return;
