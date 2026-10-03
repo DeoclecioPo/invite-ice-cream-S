@@ -27,12 +27,40 @@
 				<p class="signature">feito especialmente pra você <span aria-hidden="true">✿</span></p>
 			</section>
 
-			<section class="invite-art" aria-label="Sobremesa de sorvete com calda de chocolate">
+			<section class="invite-art" aria-label="Fotos de sorvetes e ilustrações fofas">
 				<div class="art-sticker sticker-heart" aria-hidden="true">♡</div>
 				<div class="art-sticker sticker-sparkle" aria-hidden="true">✳</div>
-				<div class="photo-frame">
-					  <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1100&q=85" alt="Sobremesa de sorvete com calda de chocolate" fetchpriority="high">
-					<div class="photo-caption"><span>uma pausa</span><span>bem docinha</span></div>
+				<div class="photo-frame" id="ice-cream-carousel" role="region" aria-roledescription="carrossel" aria-label="Fotos de sorvete">
+					<div class="carousel-slides">
+						<figure class="carousel-slide is-active" aria-hidden="false" aria-label="1 de 3">
+							<img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1100&q=85" alt="Sobremesa de sorvete com calda de chocolate" fetchpriority="high">
+							<figcaption class="photo-caption">uma pausa bem docinha</figcaption>
+						</figure>
+						<figure class="carousel-slide" aria-hidden="true" aria-label="2 de 3">
+							<img src="https://images.unsplash.com/photo-1488900128323-21503983a07e?auto=format&fit=crop&w=1100&q=85" alt="Picolés de frutas vermelhas">
+							<figcaption class="photo-caption">um sabor pra cada vontade</figcaption>
+						</figure>
+						<figure class="carousel-slide" aria-hidden="true" aria-label="3 de 3">
+							<img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=1100&q=85" alt="Sorvete servido em casquinha">
+							<figcaption class="photo-caption">o passeio perfeito ♡</figcaption>
+						</figure>
+					</div>
+					<button class="carousel-arrow carousel-prev" type="button" aria-label="Foto anterior">‹</button>
+					<button class="carousel-arrow carousel-next" type="button" aria-label="Próxima foto">›</button>
+					<div class="carousel-dots" aria-label="Escolher foto">
+						<button type="button" class="carousel-dot is-active" aria-label="Mostrar foto 1" aria-pressed="true"></button>
+						<button type="button" class="carousel-dot" aria-label="Mostrar foto 2" aria-pressed="false"></button>
+						<button type="button" class="carousel-dot" aria-label="Mostrar foto 3" aria-pressed="false"></button>
+					</div>
+				</div>
+				<div class="mascot mascot-kitty" aria-hidden="true">
+					<span class="mascot-ear mascot-ear-left"></span><span class="mascot-ear mascot-ear-right"></span>
+					<span class="mascot-bow"></span>
+					<span class="mascot-face"><i></i><i></i><b></b></span>
+				</div>
+				<div class="mascot mascot-puppy" aria-hidden="true">
+					<span class="puppy-ear puppy-ear-left"></span><span class="puppy-ear puppy-ear-right"></span>
+					<span class="mascot-face"><i></i><i></i><b></b></span>
 				</div>
 				<div class="cloud cloud-one" aria-hidden="true"></div>
 				<div class="cloud cloud-two" aria-hidden="true"></div>

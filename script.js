@@ -1,5 +1,28 @@
 const noThanksButton = document.querySelector("#no-thanks");
 
+const carousel = document.querySelector("#ice-cream-carousel");
+
+if (carousel) {
+	const slides = [...carousel.querySelectorAll(".carousel-slide")];
+	const dots = [...carousel.querySelectorAll(".carousel-dot")];
+	let activeSlide = 0;
+
+	const showSlide = (nextSlide) => {
+		activeSlide = (nextSlide + slides.length) % slides.length;
+		slides.forEach((slide, index) => {
+			const isActive = index === activeSlide;
+			slide.classList.toggle("is-active", isActive);
+			slide.setAttribute("aria-hidden", String(!isActive));
+			dots[index].classList.toggle("is-active", isActive);
+			dots[index].setAttribute("aria-pressed", String(isActive));
+		});
+	};
+
+	carousel.querySelector(".carousel-prev").addEventListener("click", () => showSlide(activeSlide - 1));
+	carousel.querySelector(".carousel-next").addEventListener("click", () => showSlide(activeSlide + 1));
+	dots.forEach((dot, index) => dot.addEventListener("click", () => showSlide(index)));
+}
+
 if (noThanksButton) {
 	noThanksButton.addEventListener("click", () => {
 		document.querySelector("#no-response").hidden = false;
