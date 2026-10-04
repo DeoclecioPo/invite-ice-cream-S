@@ -24,10 +24,54 @@ if (carousel) {
 }
 
 if (noThanksButton) {
-	noThanksButton.addEventListener("click", () => {
-		document.querySelector("#no-response").hidden = false;
-		noThanksButton.textContent = "Tudo bem ♡";
-		noThanksButton.disabled = true;
+	const response = document.querySelector("#no-response");
+	const messages = [
+		"Por que não?",
+		"Tem certeza?",
+		"Só dessa vez?",
+		"Vai, por favor",
+		"Prometo que vai ser legal",
+		"Por favorzinho?",
+		"Me dá uma chance",
+		"Não custa tentar",
+	];
+	let messageIndex = 0;
+	let lastMoveAt = 0;
+
+	const moveButton = (event) => {
+		const padding = 8;
+		const maxLeft = Math.max(padding, window.innerWidth - noThanksButton.offsetWidth - padding);
+		const maxTop = Math.max(padding, window.innerHeight - noThanksButton.offsetHeight - padding);
+		let left = padding + Math.random() * (maxLeft - padding);
+		let top = padding + Math.random() * (maxTop - padding);
+
+		for (let attempt = 0; attempt < 20; attempt += 1) {
+			left = padding + Math.random() * (maxLeft - padding);
+			top = padding + Math.random() * (maxTop - padding);
+			const pointerX = event.clientX;
+			const pointerY = event.clientY;
+			if (Math.hypot(left + noThanksButton.offsetWidth / 2 - pointerX, top + noThanksButton.offsetHeight / 2 - pointerY) > 120) break;
+		}
+
+		noThanksButton.classList.add("is-dodging");
+		noThanksButton.style.left = `${left}px`;
+		noThanksButton.style.top = `${top}px`;
+		response.textContent = messages[messageIndex];
+		response.hidden = false;
+		messageIndex = (messageIndex + 1) % messages.length;
+		lastMoveAt = Date.now();
+	};
+
+	noThanksButton.addEventListener("pointerenter", (event) => {
+		if (event.pointerType !== "touch") moveButton(event);
+	});
+	noThanksButton.addEventListener("pointerdown", (event) => {
+		event.preventDefault();
+		moveButton(event);
+	});
+	noThanksButton.addEventListener("click", (event) => {
+		event.preventDefault();
+		if (Date.now() - lastMoveAt > 500) moveButton(event);
 	});
 }
 
@@ -42,6 +86,7 @@ if (dateForm) {
 
 	dateForm.addEventListener("submit", async (event) => {
 		event.preventDefault();
+		document.querySelector("#celebration").hidden = false;
 		const submitButton = dateForm.querySelector("[type='submit']");
 		submitButton.disabled = true;
 		submitButton.textContent = "Preparando o convite…";

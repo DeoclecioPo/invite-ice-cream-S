@@ -62,10 +62,11 @@ h1, h2 { font-family: "Playfair Display", Georgia, serif; }
 .button:focus-visible, input:focus-visible + label { outline: 3px solid #83b7d1; outline-offset: 3px; }
 .button-primary { color: white; background: var(--pink); box-shadow: 0 5px 0 #b95d76; }
 .button-primary:hover { background: var(--pink-dark); }
-.button-quiet { color: #7d7478; background: transparent; border-color: var(--line); }
+.button-quiet { color: #6f6267; background: #fffaf7; border-color: #e8d8d5; }
 .button-quiet:hover { background: #fff1ef; }
+.button-quiet.is-dodging { position: fixed; z-index: 20; margin: 0; box-shadow: 0 3px 12px #8e596022; transition: left 220ms ease, top 220ms ease; }
 .button:disabled { opacity: 0.65; cursor: wait; transform: none; }
-.no-response { max-width: 340px; color: var(--pink-dark); font-size: 0.9rem; line-height: 1.6; }
+.no-response { min-height: 1.6em; max-width: 340px; margin: 14px 0 0; padding: 9px 13px; color: var(--pink-dark); background: #fff0ef; border-left: 3px solid var(--pink); border-radius: 0 5px 5px 0; font-size: 0.95rem; font-weight: 600; line-height: 1.5; }
 .signature { margin: 42px 0 0; color: #958a8d; font-weight: 500; text-transform: lowercase; }
 .signature span { color: var(--pink); }
 
@@ -120,6 +121,10 @@ fieldset.form-field { padding: 0; border: 0; }
 .schedule-submit { width: 100%; margin-top: 5px; }
 .share-note { margin: 16px 0 0; color: var(--muted); font-size: 0.82rem; line-height: 1.55; }
 .share-status { min-height: 1.2em; margin: 12px 0 0; color: var(--pink-dark); font-size: 0.88rem; line-height: 1.5; }
+.celebration { margin: 24px 0 0; text-align: center; }
+.celebration[hidden] { display: none; }
+.celebration img { display: block; width: min(100%, 320px); height: auto; margin: 0 auto; border-radius: 8px; }
+.celebration figcaption { margin-top: 12px; color: var(--pink-dark); font-family: "Playfair Display", Georgia, serif; font-size: 1.15rem; }
 
 @media (max-width: 760px) {
 	.invite-layout { width: min(520px, calc(100% - 24px)); min-height: 0; margin: 12px auto; padding: 34px clamp(22px, 7vw, 38px) 26px; grid-template-columns: 1fr; gap: 20px; }
@@ -138,6 +143,7 @@ fieldset.form-field { padding: 0; border: 0; }
 @media (max-width: 420px) {
 	.invite-actions { align-items: stretch; flex-direction: column; }
 	.invite-actions .button { width: 100%; }
+	.invite-actions .button-quiet.is-dodging { width: auto; }
 	.time-options { grid-template-columns: 1fr; }
 	.time-option:last-child { grid-column: auto; }
 }
