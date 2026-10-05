@@ -32,7 +32,7 @@ if (noThanksButton) {
 		"Vai, por favor",
 		"Prometo que vai ser legal",
 		"Por favorzinho?",
-		"Me dá uma chance",
+		"Só uma chance",
 		"Não custa tentar",
 	];
 	let messageIndex = 0;
