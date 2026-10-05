@@ -79,13 +79,41 @@ const dateForm = document.querySelector("#date-form");
 
 if (dateForm) {
 	const dateInput = document.querySelector("#meet-date");
+	const customTimeField = document.querySelector("#custom-time-field");
+	const customTimeInput = document.querySelector("#custom-meet-time");
+	const timeInputs = [...document.querySelectorAll("input[name='meet-time']")];
 	const today = new Date();
 	dateInput.min = new Date(today.getTime() - today.getTimezoneOffset() * 60_000)
 		.toISOString()
 		.slice(0, 10);
 
+	const formatCustomTime = (timeValue) => {
+		if (!timeValue) return "Ainda não tenho certeza";
+		const [hours, minutes] = timeValue.split(":").map(Number);
+		const formattedTime = `${String(hours).padStart(2, "0")}h${minutes ? String(minutes).padStart(2, "0") : ""}`;
+		return `às ${formattedTime}`;
+	};
+
+	const syncCustomTimeField = () => {
+		const selectedTime = dateForm.querySelector("input[name='meet-time']:checked");
+		const isCustomTime = selectedTime?.dataset.custom === "true";
+		customTimeField.hidden = !isCustomTime;
+		customTimeInput.required = isCustomTime;
+		if (!isCustomTime) customTimeInput.value = "";
+	};
+
+	timeInputs.forEach((timeInput) => timeInput.addEventListener("change", syncCustomTimeField));
+	syncCustomTimeField();
+
 	dateForm.addEventListener("submit", async (event) => {
 		event.preventDefault();
+		const selectedTimeInput = dateForm.querySelector("input[name='meet-time']:checked");
+		if (!selectedTimeInput) return;
+		if (selectedTimeInput.dataset.custom === "true" && !customTimeInput.value) {
+			customTimeField.hidden = false;
+			customTimeInput.focus();
+			return;
+		}
 		document.querySelector("#celebration").hidden = false;
 		const submitButton = dateForm.querySelector("[type='submit']");
 		submitButton.disabled = true;
@@ -97,77 +125,85 @@ if (dateForm) {
 			month: "long",
 			year: "numeric",
 		});
-		const chosenTime = dateForm.querySelector("input[name='meet-time']:checked").value;
+		const chosenTime = selectedTimeInput.dataset.custom === "true"
+			? formatCustomTime(customTimeInput.value)
+			: selectedTimeInput.value;
+		const title = "Um sorvetinho?";
+		const signature = "Sophia";
+		const smallPhrase = "Vai ser uma tarde bem docinha.";
 		const message = `Oi! Aqui estão minhas ideias para o nosso sorvete 🍦\n\nData: ${chosenDate}\nHorário: ${chosenTime}\n\n♡`;
 
 		try {
 			if (!window.jspdf?.jsPDF) throw new Error("PDF indisponível");
 
 			const pdf = new window.jspdf.jsPDF();
-			pdf.setFillColor(255, 246, 243);
-			pdf.rect(0, 0, 210, 297, "F");
-			pdf.setFillColor(255, 255, 255);
-			pdf.roundedRect(12, 12, 186, 273, 5, 5, "F");
+			const pageWidth = 210;
+			const pageHeight = 297;
+			const margin = 16;
+			const cardX = 13;
+			const cardY = 16;
+			const cardWidth = 184;
+			const cardHeight = 265;
 
-			pdf.setFillColor(216, 112, 140);
-			pdf.roundedRect(22, 22, 166, 68, 5, 5, "F");
-			pdf.setTextColor(255, 237, 240);
-			pdf.setFont("helvetica", "bold");
-			pdf.setFontSize(9);
-			pdf.text("UM CONVITE DOCINHO", 33, 39);
-			pdf.setTextColor(255, 255, 255);
-			pdf.setFont("helvetica", "bold");
-			pdf.setFontSize(21);
-			pdf.text("Um sorvetinho?", 33, 57);
-			pdf.setFont("helvetica", "normal");
+			pdf.setFillColor(242, 233, 216);
+			pdf.rect(0, 0, pageWidth, pageHeight, "F");
+			pdf.setFillColor(249, 242, 230);
+			pdf.roundedRect(cardX, cardY, cardWidth, cardHeight, 6, 6, "F");
+			pdf.setDrawColor(127, 82, 49);
+			pdf.setLineWidth(1.1);
+			pdf.roundedRect(cardX, cardY, cardWidth, cardHeight, 6, 6, "S");
+
+			pdf.setDrawColor(127, 82, 49);
+			pdf.setLineWidth(0.7);
+			pdf.line(cardX + 18, cardY + 18, cardX + 42, cardY + 18);
+			pdf.line(cardX + cardWidth - 18, cardY + 18, cardX + cardWidth - 42, cardY + 18);
+			pdf.line(cardX + 18, cardY + cardHeight - 18, cardX + 42, cardY + cardHeight - 18);
+			pdf.line(cardX + cardWidth - 18, cardY + cardHeight - 18, cardX + cardWidth - 42, cardY + cardHeight - 18);
+			pdf.line(cardX + 18, cardY + 18, cardX + 18, cardY + 42);
+			pdf.line(cardX + cardWidth - 18, cardY + 18, cardX + cardWidth - 18, cardY + 42);
+			pdf.line(cardX + 18, cardY + cardHeight - 18, cardX + 18, cardY + cardHeight - 42);
+			pdf.line(cardX + cardWidth - 18, cardY + cardHeight - 18, cardX + cardWidth - 18, cardY + cardHeight - 42);
+			pdf.circle(cardX + 16, cardY + 16, 7, "S");
+			pdf.circle(cardX + cardWidth - 16, cardY + 16, 7, "S");
+			pdf.circle(cardX + 16, cardY + cardHeight - 16, 7, "S");
+			pdf.circle(cardX + cardWidth - 16, cardY + cardHeight - 16, 7, "S");
+
+			pdf.setFont("times", "bold");
+			pdf.setFontSize(24);
+			pdf.text(title, 105, 70, { align: "center" });
+			pdf.setFont("times", "normal");
 			pdf.setFontSize(10);
-			pdf.text("Uma ideia gostosa pra gente combinar.", 33, 74);
 
-			pdf.setFillColor(242, 198, 145);
-			pdf.setDrawColor(242, 198, 145);
-			pdf.triangle(157, 53, 181, 53, 169, 82, "F");
-			pdf.setFillColor(255, 222, 225);
-			pdf.setDrawColor(255, 222, 225);
-			pdf.circle(164, 51, 10, "F");
-			pdf.setFillColor(190, 225, 239);
-			pdf.setDrawColor(190, 225, 239);
-			pdf.circle(175, 50, 8, "F");
-			pdf.setFillColor(255, 247, 231);
-			pdf.setDrawColor(255, 247, 231);
-			pdf.circle(169, 43, 3, "F");
-
-			pdf.setFillColor(255, 243, 241);
-			pdf.roundedRect(22, 105, 166, 57, 4, 4, "F");
-			pdf.setTextColor(181, 83, 112);
+			pdf.setFillColor(255, 248, 240);
+			pdf.roundedRect(34, 100, 142, 30, 5, 5, "F");
+			pdf.setDrawColor(127, 82, 49);
+			pdf.roundedRect(34, 100, 142, 30, 5, 5, "S");
 			pdf.setFont("helvetica", "bold");
+			pdf.setTextColor(127, 82, 49);
 			pdf.setFontSize(9);
-			pdf.text("DIA ESCOLHIDO", 34, 122);
-			pdf.setTextColor(72, 71, 76);
+			pdf.text("DATA", 105, 112, { align: "center" });
 			pdf.setFont("helvetica", "normal");
-			pdf.setFontSize(14);
-			pdf.text(pdf.splitTextToSize(chosenDate, 140), 34, 143);
-
-			pdf.setFillColor(235, 247, 250);
-			pdf.roundedRect(22, 172, 166, 57, 4, 4, "F");
-			pdf.setTextColor(78, 132, 151);
-			pdf.setFont("helvetica", "bold");
-			pdf.setFontSize(9);
-			pdf.text("HORARIO", 34, 189);
-			pdf.setTextColor(72, 71, 76);
-			pdf.setFont("helvetica", "normal");
-			pdf.setFontSize(13);
-			pdf.text(pdf.splitTextToSize(chosenTime, 140), 34, 210);
-
-			pdf.setDrawColor(240, 220, 216);
-			pdf.setLineWidth(0.5);
-			pdf.line(54, 248, 156, 248);
-			pdf.setTextColor(190, 91, 118);
-			pdf.setFont("helvetica", "bold");
 			pdf.setFontSize(12);
-			pdf.text("Com carinho, Sophia", 105, 263, { align: "center" });
-			pdf.setTextColor(130, 185, 205);
-			pdf.setFontSize(10);
-			pdf.text("Vai ser uma tarde bem docinha.", 105, 272, { align: "center" });
+			pdf.text(pdf.splitTextToSize(chosenDate, 120), 105, 121, { align: "center" });
+
+			pdf.setFillColor(255, 244, 232);
+			pdf.roundedRect(34, 146, 142, 30, 5, 5, "F");
+			pdf.setDrawColor(127, 82, 49);
+			pdf.roundedRect(34, 146, 142, 30, 5, 5, "S");
+			pdf.setFont("helvetica", "bold");
+			pdf.setTextColor(127, 82, 49);
+			pdf.setFontSize(9);
+			pdf.text("HORÁRIO", 105, 158, { align: "center" });
+			pdf.setFont("helvetica", "normal");
+			pdf.setFontSize(12);
+			pdf.text(pdf.splitTextToSize(chosenTime, 120), 105, 167, { align: "center" });
+
+			pdf.setDrawColor(127, 82, 49);
+			pdf.setLineWidth(0.8);
+			pdf.line(55, 205, 155, 205);
+			pdf.setFont("times", "bold");
+			pdf.setFontSize(12);
+			pdf.text(`Com carinho, ${signature}`, 105, 242, { align: "center" });
 
 			const pdfBlob = pdf.output("blob");
 			const pdfFile = new File([pdfBlob], "sorvete.pdf", { type: "application/pdf" });

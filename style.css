@@ -118,6 +118,12 @@ fieldset.form-field { padding: 0; border: 0; }
 .time-option input:checked + label { color: var(--pink-dark); background: #fff0ef; border-color: var(--pink); }
 .time-option input:focus-visible + label { outline: 3px solid #83b7d1; outline-offset: 2px; }
 .time-option:last-child { grid-column: 1 / -1; }
+.custom-time-field {
+  margin-top: 14px; padding: 12px 14px; background: #fff7f6; border: 1px solid #f2d8d3; border-radius: 4px;
+}
+.custom-time-field[hidden] { display: none; }
+.custom-time-field label { display: block; margin-bottom: 8px; color: var(--ink); font-size: 0.88rem; font-weight: 700; }
+.custom-time-field input[type="time"] { width: 100%; min-height: 46px; padding: 0 12px; color: var(--ink); background: white; border: 1px solid #dfd1cf; border-radius: 3px; }
 .schedule-submit { width: 100%; margin-top: 5px; }
 .share-note { margin: 16px 0 0; color: var(--muted); font-size: 0.82rem; line-height: 1.55; }
 .share-status { min-height: 1.2em; margin: 12px 0 0; color: var(--pink-dark); font-size: 0.88rem; line-height: 1.5; }
